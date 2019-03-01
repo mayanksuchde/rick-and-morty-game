@@ -30,29 +30,36 @@ export default class CardContainer extends Component {
         })
         let filteredArray = this.clickCounter(this.state.characters)
         let [element1, element2] = filteredArray; 
-
-        if (filteredArray.length === 2 ){
-            const characters = [...newArr];
-            let finalArr=[];
-            if (element1.name === element2.name){
-                finalArr=characters.map((obj)=>{
-                    if(obj.name===element1.name){
-                        obj.foundPair=true
-                    }
-                });
-                return finalArr;
-            }else{
-                finalArr=characters.map(obj=>{
-                    if(obj.id===element1.id || obj.id===element2.id){
-                        obj.isClicked=false;
-                    }
-                })
+       
+        setTimeout(()=>{
+            if (filteredArray.length === 2 ){
+                const characters = [...newArr];
+                // let finalArr=[];
+                if (element1.name === element2.name){
+                    characters.forEach((obj)=>{
+                        if(obj.name===element1.name){
+                            obj.foundPair=true
+                        }
+                    });
+                    this.setState({
+                        characters:characters
+                    })
+                    // return finalArr;
+                }else{
+    
+                    characters.forEach(obj=>{
+                        if(obj.id===element1.id || obj.id===element2.id){
+                            obj.isClicked=false;
+                            console.log("Yo Mandy")
+                        }
+                    })
+                    this.setState({
+                        characters:characters
+                    })
+                }
             }
-            
-
-
-
-        }
+        },2000)
+    
         }
     clickCounter=(arr)=>{
         let newArr = arr.filter((element)=>{ 
@@ -68,7 +75,7 @@ export default class CardContainer extends Component {
  
     return (
       <div >
-        <h1>Cards</h1>
+        <h1>Rick and Morty Matching Game</h1>
         <div className='card-container'>
             {this.state.characters.map((char,i)=>{ return <Card key={i} character={char} cardFlipper={this.cardFlipper} /> })}
         </div>
