@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import startPage from './startPage';
 import CardContainer from './CardContainer';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 class App extends Component {
 
@@ -26,13 +27,15 @@ class App extends Component {
   render() {
 
     
-
-    
     return (
-      <div className="App">
-
-        <CardContainer shuffle={this.shuffle} />
-      </div>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route path="/" exact component= { startPage }/>
+            <Route path="/cardGame" render= {(props)=>{return <CardContainer shuffle={this.shuffle} />}} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
